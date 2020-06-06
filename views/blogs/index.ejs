@@ -1,0 +1,33 @@
+<% include ../partials/header %> 
+
+ <div class="container">
+     <header class="jumbotron">
+         <div class="container">
+             <h1>Welcome To IB Discuss </h1>
+             <p>
+                <a class="btn btn-primary btn-large" href="/blogs/new">Add New Blog</a>
+             </p>
+         </div>
+     </header>
+     
+     <div class="row text-center" style="display:flex; flex-wrap: wrap;">
+		 
+        <% blogs.forEach(function(blog){ %>
+            <div class="col-md-12 col-sm-12">
+                <div class="thumbnail">
+					<div class="caption">
+						<h4><b><%= blog.name %></b></h4>
+                    </div>
+                     <div class="ques">
+                       <p><%=blog.question.substring(0,100) %>...<a href="/blogs/<%= blog._id %>" >more</a></p>
+                    </div>
+                  
+                       
+                   
+                </div>
+            </div>
+        <% }); %>
+    </div>
+</div>
+
+<% include ../partials/footer %>

@@ -1,0 +1,61 @@
+<% include ../partials/header %>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <p class="lead">IB DISCUSS</p>
+            <div class="list-group">
+                <li class="list-group-item"><a><%=blog.name%></a></li>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="thumbnail">
+               <div class="caption-full">
+				   <h2>
+					   <%=blog.name%>
+				   </h2>
+                   <div class="ques">
+						<p><%= blog.question %></p>
+					</div>
+					<br/>
+                    <div class="ques">
+					 <p><%= blog.description %></p>
+				   </div>
+				   <p>
+                        <em>Submitted By <%= blog.author.username %></em>
+                    </p>
+                    <% if(currentUser && blog.author.id.equals(currentUser._id)){ %>
+                        <a class="btn btn-xs btn-warning" href="/blogs/<%= blog._id %>/edit">Edit</a>
+                        <form id="delete-form" action="/blogs/<%= blog._id %>?_method=DELETE" method="POST">
+                            <button class="btn btn-xs btn-danger">Delete</button>
+                        </form>
+                    <% }%>
+                </div>
+            </div>
+            <div class="well">
+                <div class="text-right">
+                    <a class="btn btn-success" href="/blogs/<%= blog._id %>/comments/new">Add New Comment</a>
+                </div>
+                <hr>
+                <% blog.comments.forEach(function(comment){ %>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong><%= comment.author.username %></strong>
+                            <p>
+                                <%= comment.text %> 
+                            </p>
+							<% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
+                            <a class="btn btn-xs btn-warning" 
+                               href="/blogs/<%=blog._id %>/comments/<%=comment._id %>/edit">Edit</a>
+                            <form id="delete-form" action="/blogs/<%=blog._id %>/comments/<%=comment._id %>?_method=DELETE" method="POST">
+                                <input type="submit" class="btn btn-xs btn-danger" value="Delete">
+                            </form>
+                        <% } %>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer %>
